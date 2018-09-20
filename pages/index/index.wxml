@@ -1,0 +1,50 @@
+<!--index.wxml-->
+
+<view class='page' wx:if="{{authinfo.name}}" style='width:100%;height:100%;'>
+  <view class="page__bd"  style="width:100%;height:100%;background-image: url('{{authinfo.bgurl}}');background-size: cover;background-repeat:round;">
+    <view class="weui-flex">
+      <view class="weui-flex__item center mt-200">
+        <image src="{{authinfo.avatar}}" mode='scaleToFill' style='border-radius: 50%;width:200rpx;height:200rpx;'></image>
+      </view>
+    </view>
+
+    <view class="weui-flex mt-20">
+      <view class="weui-flex__item center">
+        <view class="placeholder-title">{{authinfo.name}}</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item center">
+        <view class="placeholder-content">QQ:</view>
+        <view class="placeholder-content">{{authinfo.qq}}</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item center">
+        <view class="placeholder-content">TEL:</view>
+        <view class="placeholder-content">{{authinfo.mobile}}</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item center">
+        <view class="placeholder-content">WEB:</view>
+        <view class="placeholder-content">{{authinfo.blog}}</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item center">
+        <view class="placeholder-content">GitHub:</view>
+        <view class="placeholder-content">{{authinfo.github}}</view>
+      </view>
+    </view>
+    
+    <view class="weui-flex">
+      <view class="weui-flex__item center">
+        <view class="placeholder-content">{{authinfo.desc}}</view>
+      </view>
+    </view>
+
+  </view>
+</view>
+<view class='bg' style="width:100%;height:100%;background-image: url('https://blog.df5g.com/uploads/avatar/fa1c74f53ffc379542c273a6e46f4eb5.jpg');background-size: cover;background-repeat:round;" wx:else>
+</view>

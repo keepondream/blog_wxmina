@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/list/list",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#3399FF",
+    "navigationBarTitleText": "孤岛渔夫的博客",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#3399FF"
+  },
+  "tabBar": {
+    "color": "#bdc3c7",
+    "selectedColor": "#1577DE",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "image/home_l_1.png",
+      "selectedIconPath": "image/home_h_2.png"
+    },{
+      "pagePath": "pages/list/list",
+      "text": "博文",
+      "iconPath": "image/list_l_1.png",
+      "selectedIconPath": "image/list_h_2.png"
+    }]
+  }
+  
+}
