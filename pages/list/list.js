@@ -105,8 +105,9 @@ Page({
     wx.hideNavigationBarLoading()
   },
   //获取文章
-  getCurlPic: function (start,end) {
+  getCurlArticle: function (start,end) {
     let that = this
+    var url = ""
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
     wx.request({
