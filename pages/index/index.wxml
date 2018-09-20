@@ -10,37 +10,37 @@
 
     <view class="weui-flex mt-20">
       <view class="weui-flex__item center">
-        <view class="placeholder-title">{{authinfo.name}}</view>
+        <view class="placeholder-title" style="color:{{authinfo.titlecolor}}">{{authinfo.name}}</view>
       </view>
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item center">
-        <view class="placeholder-content">QQ:</view>
-        <view class="placeholder-content">{{authinfo.qq}}</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">QQ:</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">{{authinfo.qq}}</view>
       </view>
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item center">
-        <view class="placeholder-content">TEL:</view>
-        <view class="placeholder-content">{{authinfo.mobile}}</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">TEL:</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">{{authinfo.mobile}}</view>
       </view>
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item center">
-        <view class="placeholder-content">WEB:</view>
-        <view class="placeholder-content">{{authinfo.blog}}</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">WEB:</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">{{authinfo.blog}}</view>
       </view>
     </view>
     <view class="weui-flex">
       <view class="weui-flex__item center">
-        <view class="placeholder-content">GitHub:</view>
-        <view class="placeholder-content">{{authinfo.github}}</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">GitHub:</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">{{authinfo.github}}</view>
       </view>
     </view>
     
     <view class="weui-flex">
       <view class="weui-flex__item center">
-        <view class="placeholder-content">{{authinfo.desc}}</view>
+        <view class="placeholder-content" style="color:{{authinfo.textcolor}}">{{authinfo.desc}}</view>
       </view>
     </view>
 

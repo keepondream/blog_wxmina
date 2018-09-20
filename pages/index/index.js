@@ -17,6 +17,8 @@ Page({
     })
   },
   onLoad: function() {
+    wx.showLoading({ title: '加载中'})
+    this.showNavigationBarLoading();
     if (app.globalData.authinfo) {
       this.setData({
         authinfo: app.globalData.authinfo
@@ -50,6 +52,13 @@ Page({
         }
       })
     }
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    wx.hideLoading()
+    this.hideNavigationBarLoading();
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -85,4 +94,13 @@ Page({
   onPullDownRefresh: function () {
     this.getCurl("https://api.df5g.cn/api/basicinfo");
   },
+  //页面显示加载动画
+  showNavigationBarLoading: function () {
+    wx.showNavigationBarLoading()
+  },
+  //页面隐藏加载动画
+
+  hideNavigationBarLoading: function () {
+    wx.hideNavigationBarLoading()
+  }
 })
