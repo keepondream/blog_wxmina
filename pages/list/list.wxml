@@ -1,5 +1,6 @@
 <!--pages/list/list.wxml-->
-<view class="page">
+<view class="page" wx:if="{{isfirst}}">
+  <!-- 滚动图 -->
   <swiper class="imageContainer" bindchange="handleChange" indicator-dots="true" previous-margin="50rpx" next-margin="50rpx" circular autoplay>
     <block wx:for="{{pics}}" wx:key="{{index}}">
       <swiper-item class="item">
@@ -7,30 +8,44 @@
       </swiper-item>
     </block>
   </swiper>
-</view>
 
-<view class="page__bd">
-  <view class="weui-panel weui-panel_access">
-    <view class="weui-panel__hd">最新文章</view>
-    <view class="weui-panel__bd">
-      <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-          <image class="weui-media-box__thumb" src="{{icon60}}" />
-        </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title">标题一</view>
-          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-        </view>
-      </navigator>
-      <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-          <image class="weui-media-box__thumb" src="{{icon60}}" />
-        </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title">标题二</view>
-          <view class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</view>
-        </view>
-      </navigator>
+  <!-- 列表 -->
+  <view class="page__bd">
+    <view class="weui-panel weui-panel_access">
+      <view class="weui-panel__hd">博文列表</view>
+      <view class="weui-panel__bd">
+        <block wx:for="{{articles}}" wx:key="index">
+          <navigator url="../detail/detail?id={{item.id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="{{item.list_pic}}" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+              <view class="weui-media-box__title">{{item.title}}</view>
+              <view class="weui-media-box__desc">{{item.desc}}</view>
+              <view class="weui-flex">
+                <view class="weui-flex__item" style='display:flex;justify-content: space-between;'>
+                  <view class="placeholder list-font">标签: {{item.catname}}</view>
+                  <view class="placeholder list-font">时间: {{item.update_time}}</view>
+                </view>
+              </view>
+            </view>
+          </navigator>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部动态样式-->
+  <view class="page__bd">
+    <view class="weui-loadmore" hidden="{{isHideLoadMore}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" hidden="{{isHideLoadMoreCompany}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">我是有底线的</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot" hidden="{{isHideLoadMore}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
     </view>
   </view>
 </view>

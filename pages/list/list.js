@@ -6,77 +6,85 @@ Page({
    */
   data: {
     currentIndex: 0,
-    pics: {}
+    pics: {},
+    articlePage: 0,
+    articlepageSize: 5,
+    articles: [],
+    isHideLoadMore: true,  //是否隐藏底部加载
+    isHideLoadMoreCompany: false, //是否隐藏到底部
+    isfirst: false //是否首次数据加载成功
 
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中'
+    })
     this.showNavigationBarLoading();
-    wx.showLoading({ title: '加载中' })
+    //加载滑动图片
     this.getCurlPic("https://api.df5g.cn/api/randpic/0/5")
+    //加载文章
+    this.getCurlArticle()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     wx.hideLoading()
     this.hideNavigationBarLoading();
-    console.log("渲染完成 onready")
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    console.log("显示 onShow")
+  onShow: function() {
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    console.log("隐藏 onHide")
+  onHide: function() {
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh: function() {
+    this.getThisPullDownRefresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
+  onReachBottom: function() {
+    this.getCurlArticle()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   /* 这里实现控制中间凸显图片的样式 */
-  handleChange: function (e) {
+  handleChange: function(e) {
     this.setData({
       currentIndex: e.detail.current
     })
   },
   //获取图片集
-  getCurlPic: function (url) {
+  getCurlPic: function(url) {
     let that = this
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
@@ -96,33 +104,80 @@ Page({
     })
   },
   //页面显示加载动画
-  showNavigationBarLoading: function () {
+  showNavigationBarLoading: function() {
     wx.showNavigationBarLoading()
   },
   //页面隐藏加载动画
-
-  hideNavigationBarLoading: function () {
+  hideNavigationBarLoading: function() {
     wx.hideNavigationBarLoading()
   },
   //获取文章
-  getCurlArticle: function (start,end) {
-    let that = this
-    var url = ""
-    // 显示顶部刷新图标
+  getCurlArticle: function(pageSize) {
+    //显示底部加载动画
+    this.setData({
+      isHideLoadMore: false,
+      isHideLoadMoreCompany: true
+    })
+    //显示顶部刷新图标
     wx.showNavigationBarLoading();
+    if (pageSize && pageSize != 5) {
+      this.data.articlepageSize = pageSize
+    }
+    var url = "https://api.df5g.cn/api/articles/" + this.data.articlePage + "/" + this.data.articlepageSize;
+    var oldArticles = this.data.articles
+    
+    var oldArticlesCount = oldArticles.length
+    let that = this
     wx.request({
       url: url,
       success(data) {
         if (data.statusCode == 200) {
-          that.setData({
-            pics: data.data
-          })
+          that.data.articlePage++
+          if (data.data) {
+            let newDataCount = data.data.length
+            for (let i = 0; i < newDataCount; i++) {
+              oldArticles[oldArticlesCount + i] = data.data[i]
+            }
+            that.setData({
+              articles: oldArticles
+            })
+          }
           // 隐藏导航上的加载框
           wx.hideNavigationBarLoading();
           // 停止下拉动作
           wx.stopPullDownRefresh();
+          // 取消底部加载动画
+          that.setData({
+            isHideLoadMore: true,
+            isHideLoadMoreCompany: false
+          })
+          if (!that.data.isfirst){
+            that.setData({
+              isfirst: true
+            })
+          }
         }
+      },
+      fail: function (res) {
+        that.setData({
+          isHideLoadMore: true,
+          isHideLoadMoreCompany: false
+        })
       }
     })
+  },
+
+  //下拉刷新
+  getThisPullDownRefresh: function() {
+    this.showNavigationBarLoading();
+    //加载滑动图片
+    this.getCurlPic("https://api.df5g.cn/api/randpic/0/5")
+    //加载文章
+    this.data.articlePage = 0
+    this.setData({
+      articles: []
+    })
+    this.getCurlArticle()
   }
+
 })

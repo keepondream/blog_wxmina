@@ -1,0 +1,21 @@
+<!--pages/detail/detail.wxml-->
+<view class="page" wx:if="{{tail.id}}">
+  <view class="page__bd">
+    <view class="weui-article">
+      <view class="weui-article__h1">{{tail.title}}</view>
+      <view class="weui-article__section">
+        <view class="weui-article__title" style='display:flex;justify-content: space-between;'>
+          <view class="placeholder list-font">标签: {{tail.catename}}</view>
+          <view class="placeholder list-font">时间: {{tail.created_at}}</view>
+        </view>
+        <view class="weui-article__section">
+          <wemark md="{{tail.content}}" link="fales" highlight="true" type="wemark"></wemark>
+        </view>
+        <view class="weui-article__title" style='display:flex;justify-content: space-between;'>
+        <view class="placeholder list-font"></view>
+          <view class="placeholder list-font">作者: {{tail.username}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
