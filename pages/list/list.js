@@ -1,4 +1,7 @@
 // pages/list/list.js
+//获取应用实例
+const app = getApp()
+
 Page({
 
   /**
@@ -25,7 +28,7 @@ Page({
     })
     this.showNavigationBarLoading();
     //加载滑动图片
-    this.getCurlPic("https://api.df5g.cn/api/randpic/0/5")
+    this.getCurlPic("api/randpic/0/5")
     //加载文章
     this.getCurlArticle()
   },
@@ -88,19 +91,14 @@ Page({
     let that = this
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
-    wx.request({
-      url: url,
-      success(data) {
-        if (data.statusCode == 200) {
-          that.setData({
-            pics: data.data
-          })
-          // 隐藏导航上的加载框
-          wx.hideNavigationBarLoading();
-          // 停止下拉动作
-          wx.stopPullDownRefresh();
-        }
-      }
+    app.http(url,'GET').then((res)=>{
+      that.setData({
+        pics:res.data
+      })
+      // 隐藏导航上的加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
     })
   },
   //页面显示加载动画
@@ -123,48 +121,43 @@ Page({
     if (pageSize && pageSize != 5) {
       this.data.articlepageSize = pageSize
     }
-    var url = "https://api.df5g.cn/api/articles/" + this.data.articlePage + "/" + this.data.articlepageSize;
+    var url = "api/articles/" + this.data.articlePage + "/" + this.data.articlepageSize;
     var oldArticles = this.data.articles
     
     var oldArticlesCount = oldArticles.length
     let that = this
-    wx.request({
-      url: url,
-      success(data) {
-        if (data.statusCode == 200) {
-          that.data.articlePage++
-          if (data.data) {
-            let newDataCount = data.data.length
-            for (let i = 0; i < newDataCount; i++) {
-              oldArticles[oldArticlesCount + i] = data.data[i]
-            }
-            that.setData({
-              articles: oldArticles
-            })
-          }
-          // 隐藏导航上的加载框
-          wx.hideNavigationBarLoading();
-          // 停止下拉动作
-          wx.stopPullDownRefresh();
-          // 取消底部加载动画
-          that.setData({
-            isHideLoadMore: true,
-            isHideLoadMoreCompany: false
-          })
-          if (!that.data.isfirst){
-            that.setData({
-              isfirst: true
-            })
-          }
+    app.http(url,'GET').then((res) => {
+      that.data.articlePage++
+      if (res.data) {
+        let newDataCount = res.data.length
+        for (let i = 0; i < newDataCount; i++) {
+          oldArticles[oldArticlesCount + i] = res.data[i]
         }
-      },
-      fail: function (res) {
         that.setData({
-          isHideLoadMore: true,
-          isHideLoadMoreCompany: false
+          articles: oldArticles
         })
       }
+      // 隐藏导航上的加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
+      // 取消底部加载动画
+      that.setData({
+        isHideLoadMore: true,
+        isHideLoadMoreCompany: false
+      })
+      if (!that.data.isfirst){
+        that.setData({
+          isfirst: true
+        })
+      }
+    }).catch((res)=>{
+      that.setData({
+        isHideLoadMore: true,
+        isHideLoadMoreCompany: false
+      })
     })
+
   },
 
   //下拉刷新

@@ -16,19 +16,15 @@ Page({
   onLoad: function(options) {
     let that = this
     wx.showNavigationBarLoading();
-    wx.request({
-      url: "https://api.df5g.cn/api/tail/" + options.id,
-      success(data) {
-        if (data.statusCode == 200) {        
-          that.setData({
-            tail: data.data,
-          })
-          // 隐藏导航上的加载框
-          wx.hideNavigationBarLoading();
-          // 停止下拉动作
-          wx.stopPullDownRefresh();
-        }
-      }
+    let url = "api/tail/" + options.id
+    app.http(url,"GET").then((res)=>{
+      that.setData({
+        tail: res.data,
+      })
+      // 隐藏导航上的加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
     })
   },
 

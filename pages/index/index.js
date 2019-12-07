@@ -11,20 +11,20 @@ Page({
     authinfo: ""
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     wx.navigateTo({
       url: '../logs/logs'
     })
   },
-  onLoad: function() {
-    wx.showLoading({ title: '加载中'})
+  onLoad: function () {
+    wx.showLoading({ title: '加载中' })
     this.showNavigationBarLoading();
-    if (app.globalData.authinfo) {
+    if (!app.globalData.authinfo) {
       this.setData({
         authinfo: app.globalData.authinfo
       })
     } else {
-      this.getCurl("https://api.df5g.cn/api/basicinfo");
+      this.getCurl()
     }
     if (app.globalData.userInfo) {
       this.setData({
@@ -60,38 +60,32 @@ Page({
     wx.hideLoading()
     this.hideNavigationBarLoading();
   },
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
   },
-  getCurl: function(url) {
+  getCurl: function () {
     let that = this
     // 显示顶部刷新图标
     wx.showNavigationBarLoading();
-    wx.request({
-      url: url,
-      success(data) {
-        if (data.statusCode == 200) {
-          app.globalData.authinfo = data.data
-          that.setData({
-            authinfo: data.data
-          })
-          // 隐藏导航上的加载框
-          wx.hideNavigationBarLoading();
-          // 停止下拉动作
-          wx.stopPullDownRefresh();
-        }
-      }
+    app.http('api/basicinfo', 'GET').then((res) => {
+      that.setData({
+        authinfo: res.data
+      })
+      // 隐藏导航上的加载框
+      wx.hideNavigationBarLoading();
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
     })
   },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getCurl("https://api.df5g.cn/api/basicinfo");
+    this.getCurl();
   },
   //页面显示加载动画
   showNavigationBarLoading: function () {

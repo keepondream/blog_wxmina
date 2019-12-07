@@ -24,8 +24,8 @@
               <view class="weui-media-box__desc">{{item.desc}}</view>
               <view class="weui-flex">
                 <view class="weui-flex__item" style='display:flex;justify-content: space-between;'>
-                  <view class="placeholder list-font">标签: {{item.catname}}</view>
-                  <view class="placeholder list-font">时间: {{item.update_time}}</view>
+                  <view class="placeholder list-font">标签: {{item.category.name}}</view>
+                  <view class="placeholder list-font">时间: {{item.updated_at}}</view>
                 </view>
               </view>
             </view>
