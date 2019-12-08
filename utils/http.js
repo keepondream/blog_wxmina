@@ -39,6 +39,7 @@ const http = (url, method, data, showLoading = true) => {
                     console.log('request url: ' + url + ' , method: ' + method + ' >>>>>>>', request_params, return_result)
                 }
                 if (res.statusCode != 200) {
+                    console.log('>>> 反反复复: + url :' + url + ' , method : ' + method  ,res)
                     reject({
                         error: '服务器忙,请稍后重试',
                         code: 500

@@ -10,7 +10,8 @@
     "navigationBarBackgroundColor": "#3399FF",
     "navigationBarTitleText": "孤岛渔夫的博客",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#3399FF"
+    "backgroundColor": "#3399FF",
+    "enablePullDownRefresh":true
   },
   "tabBar": {
     "color": "#bdc3c7",

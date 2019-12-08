@@ -164,7 +164,7 @@ Page({
   getThisPullDownRefresh: function() {
     this.showNavigationBarLoading();
     //加载滑动图片
-    this.getCurlPic("https://api.df5g.cn/api/randpic/0/5")
+    this.getCurlPic("api/randpic/0/5")
     //加载文章
     this.data.articlePage = 0
     this.setData({

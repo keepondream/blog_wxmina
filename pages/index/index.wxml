@@ -1,7 +1,7 @@
 <!--index.wxml-->
 
 <view class='page' wx:if="{{authinfo.name}}" style='width:100%;height:100%;'>
-  <view class="page__bd"  style="width:100%;height:100%;background-image: url('{{authinfo.bgurl}}');background-size: cover;background-repeat:round;">
+  <view class="page__bd"  style="width:100%;height:110%;background-image: url('{{authinfo.bgurl}}');background-size: cover;background-repeat:round;">
     <view class="weui-flex">
       <view class="weui-flex__item center mt-200">
         <image src="{{authinfo.avatar}}" mode='scaleToFill' style='border-radius: 50%;width:200rpx;height:200rpx;'></image>

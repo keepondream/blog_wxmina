@@ -19,6 +19,7 @@ Page({
   onLoad: function () {
     wx.showLoading({ title: '加载中' })
     this.showNavigationBarLoading();
+    this.getCurl()
     if (!app.globalData.authinfo) {
       this.setData({
         authinfo: app.globalData.authinfo
